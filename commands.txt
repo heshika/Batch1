@@ -1,0 +1,9 @@
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser -Force
+
+Set-ExecutionPolicy -ExecutionPolicy ALLsigned -Scope CurrentUser -Force
+
+Set-ExecutionPolicy -ExecutionPolicy Remotesigned -Scope CurrentUser -Force
+
+Set-ExecutionPolicy -ExecutionPolicy restricted -Scope CurrentUser -Force
+
+Set-ExecutionPolicy -ExecutionPolicy bypass -Scope CurrentUser -Force
