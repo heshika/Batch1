@@ -1,0 +1,51 @@
+#This is for testing purpose
+#Set-ExecutionPolicy -ExecutionPolicy bypass -Scope CurrentUser -Force
+
+write-host "good morning"
+ipconfig /all
+hostname
+
+#services infomration
+
+#C:\Users\Indrani M\Desktop\practice-PS
+#powershell.exe -file "C:\Users\Indrani M\Desktop\practice-PS\Test29th.ps1"
+
+
+<#
+
+
+
+
+execution policy : seciurity mechanism to run scripts
+
+get-executionpolicy
+
+Restricted : restricted to run scripts 
+unrestricted : allowed to run the scripts
+Bypass : current execution policy can be bypass
+allsigned : we can run trusted script from authorites
+Remotesigned :
+
+#>
+
+
+#normal varible creation:
+new-varible -name soap -value "350"
+
+
+Set-Variable -Name soap -Value "500"
+
+
+Readonly : values can only be changed with force operator
+
+New-Variable -Name "cellpoint" -Value "5000" -Option ReadOnly
+
+set-Variable -Name "cellpoint" -Value "3000"
+
+set-Variable -Name "cellpoint" -Value "3000" -Force
+
+constant : values can not be changed with force operator
+
+set-Variable -Name "product" -Value "6000"
+
+
