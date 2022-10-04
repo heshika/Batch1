@@ -1,0 +1,102 @@
+﻿operators
+
+Arithmetic Binary Operators
++, -, *, \, %, ++, --
+
+addition:
+
+2+3
+$a=10
+$b=20
+$a+$b
+"good"+"morning"
+$a=@("one","two")+@("three","four")
+
+
+substarction
+
+$a-$b
+get-date
+
+
+$a=100 for 5 items
+$a*5
+$r=@("i","i","i","i")*
+
+division:
+
+$a=10,$b=5
+
+$a/$b = 2
+
+$a%$b = remainder =0
+
+++ : increment
+increase the value by 1
+$c=1
+$c++ or $c+1
+
+$c=$c+1
+
+-- decrease --
+decrement
+
+
+
+assigment operator:
+
+
+=,+=,-=,*
+
+assign the value to variable
+
+$a="hello"
+
++=
+
+$a=5
+$a += 6
+
+-=
+$a
+$a -= 5
+
+* 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
