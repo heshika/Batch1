@@ -1,4 +1,5 @@
-﻿Powershell is Object Oriented language
+﻿a.hold your breath..tens your body 12,3,456,
+exceel with ha haa sound.(everything leaving body)Powershell is Object Oriented language
 object - object has some data and ability to something with data
 Powershell everything is object
 or
@@ -13,7 +14,7 @@ Manufrature : TATA
 Fuel : petrorl
 Capacity : 4 seater
 
-#methods : something we can do with this object
+#methods : something or actions  we can do with this object
 
 Start engine
 stop Engine
@@ -120,6 +121,7 @@ example: $bits.Name or $bits.ServiceName(##both are same)
 ##actions which we can do
 Where-Object
 where
+?
 Select-Object
 
 $service=Get-Service -Name bits
@@ -288,21 +290,104 @@ $_.refresh()
 
 
 #assignments ?
-
-Get-CimInstance -ClassName Win32_LogicalDisk
-
 #total free space in gb
-
 #percentage of free space
+##for single drive type
+Get-CimInstance -ClassName Win32_LogicalDisk
 $freespace =0
-
 $disk=Get-CimInstance -ClassName Win32_LogicalDisk
+$freespace=($disk.FreeSpace/1GB)
+$totalsize=($disk.Size/1GB)
+$freespacepercent=($freespace/$totalsize)*100
 
 
 
+###For multiple drives####
+$disk=Get-CimInstance -ClassName Win32_LogicalDisk
+$disk |Where-Object {$_.DriveType -eq 3}|%{
+write-host "$($_.DeviceID) - $($_.Size)"
+$freespace +=$_.freespace
+$size +=$_.Size
+}
+write-host "total free space =$($freespace/1GB)" -ForegroundColor Green
+Write-Host "Free space % =$(($freespace/$size)*100)" -ForegroundColor Green
 
 
 
+########################################
+
+###How to do rounded off?
+[System.Math]::Round(($freespace/1GB),2)
+
+##system.math is class built on .net code
+
+
+
+###Few more object cmdlets :
+
+#Group-Object: 
+#To group objects in particular property
+
+$services =get-service
+$grouped=$services |Group-Object -Property status
+$grouped|Where-Object{$_.Name -eq "stopped"}|Select-Object -ExpandProperty Group
+
+
+#sort-object
+
+##which display data in asending or desending order
+
+$services |Sort-Object -Property Status -Descending
+$services |Sort-Object -Property DisplayName -Descending
+
+
+
+##select-object
+
+#To select only first element  or first 10 elements
+
+$services |Select-Object -First 1
+
+
+#How to export and import to csv?
+$services |Where-Object {$_.DisplayName -like "windows*"} |Export-Csv -Path .\Desktop\powershellnotes-personal\winservice.csv
+$services |Where-Object {$_.DisplayName -like "windows*"} |Export-Csv -Path .\Desktop\powershellnotes-personal\winservice.csv -NoTypeInformation
+$services |Where-Object {$_.DisplayName -like "application*"} |Export-Csv -Path .\Desktop\powershellnotes-personal\application.csv -NoTypeInformation
+
+
+$win=Export-Csv -Path .\Desktop\powershellnotes-personal\winservice.csv
+$adobe=export-csv -Path .\Desktop\powershellnotes-personal\application.csv
+
+Compare-Object -ReferenceObject $win -DifferenceObject $adobe -Property name
+
+
+
+####Measure-Object
+#which is similar to previous script to get another way.
+
+Get-CimInstance -ClassName  Win32_LogicalDisk |Measure-Object -Property FreeSpace -Sum -Maximum -Minimum -Average
+
+
+#Tee-Object
+#used for pipline ,we can output particular stages
+
+Get-Service |Where-Object{$_.status -eq "Running"}| Where-Object {$_.Name -like "windows*"}|Select-Object status,Name
+
+#To write code in simplicitic way or split them to multiple lines
+#using back tik"
+
+Get-Service |Where-Object{$_.status -eq "Running"}`
+| Where-Object {$_.displayname -like "windows*"} |Tee-Object -Variable teedata `
+|Select-Object status,Name
+
+
+
+get-help
+#To get help of synatx
+
+#get-command
+#which we can search for different commands
+Get-Command "*Item" -CommandType Cmdlet
 
 
 
