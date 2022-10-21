@@ -120,3 +120,45 @@ and convey trust to users.
 A certificate or digital certificate is a unique, 
 digitally signed document which authoritatively identifies the identity of an individual or organization. Using public key cryptography,
  its authenticity can be verified to ensure that the software or website you are using is legitimate
+
+
+ A public key certificate uses a pair of encryption keys, one public and one private. The public key is made available to anyone who wants to verify the identity of the certificate holder, while the private key is a unique key that is kept secret
+
+
+ #Get cert
+
+ Get-ChildItem Cert:\CurrentUser -Recurse |Where-Object {$_.NotAfter -le $($(get-date).AddDays(180))}
+ Get-ChildItem Cert:\CurrentUser -Recurse |Where-Object{$_.Issuer -like  "Microsoft*"}
+ Get-ChildItem Cert:\CurrentUser -Recurse |Where-Object {$_.EnhancedKeyUsageList -like "*code signing"}
+
+
+
+ #create self signed certificate
+
+ New-SelfSignedCertificate -DnsName "devops.com" -CertStoreLocation "Cert:\localmachine"`
+ -Type CodeSigningCert -Subject "signing code"
+
+
+ or
+
+
+
+ $Params = @{
+    "DnsName"           = @("mywebsite.com","www.mywebsite.com")
+    "CertStoreLocation" = "Cert:LocalMachineMy"
+    "NotAfter"          = (Get-Date).AddMonths(6)
+    "KeyAlgorithm"      = "RSA"
+  "KeyLength"         = "2048"
+}
+
+PS C:> New-SelfSignedCertificate @Params
+
+
+ #How to sign a script
+
+ $cert=Get-ChildItem -Path "Cert:\LocalMachine\My"
+
+ Set-AuthenticodeSignature -Certificate $cert -FilePath "C:\Users\Indrani M\Desktop\powershellnotes-personal\diskusage.ps1"
+
+
+ Export-Certificate  -cert $cert -Type CERT -FilePath "C:\Users\Indrani M\Desktop\powershellnotes-personal\test.cert"
