@@ -1,0 +1,112 @@
+
+Day2:
+ansible commands
+
+1.defaulat modules 
+ping
+
+2.To display output in one line
+
+[ansible@ansible-server ~]$ ansible all -m ping -o
+10.0.0.10 | SUCCESS => {"ansible_facts": {"discovered_interpreter_python": "/usr/libexec/platform-python"},"changed": false,"ping": "pong"}
+10.0.0.190 | SUCCESS => {"ansible_facts": {"discovered_interpreter_python": "/usr/libexec/platform-python"},"changed": false,"ping": "pong"}
+
+3. To run for single machine:
+
+[ansible@ansible-server ~]$ ansible 10.0.0.10 -m ping
+10.0.0.10 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/libexec/platform-python"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+
+
+4. How to create groups:
+
+[webserver]
+10.0.0.10
+
+[appserver]
+10.0.0.190
+
+5.The servers whcih are not part of any group can be kept in seperately.
+6.To keep related servers.
+
+ www.backupserver1.com
+ www.backupserver2.com
+ www.backupserver3.com
+ www.backupserver4.com
+
+www.backupserver[1:4].com
+
+7. To ping particular group
+
+
+[ansible@ansible-server ~]$ ansible webservers -m ping
+10.0.0.10 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/libexec/platform-python"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+[ansible@ansible-server ~]$ ansible appservers -m ping
+10.0.0.190 | SUCCESS => {
+    "ansible_facts": {
+        "discovered_interpreter_python": "/usr/libexec/platform-python"
+    },
+    "changed": false,
+    "ping": "pong"
+}
+
+
+
+8:To connect to localserver need to copy public key file to localhost
+ ssh-copy-id ansible@localhost
+
+
+9.Imp ,To avoid to ask host key authentication
+
+  vi /etc/ansible/ansible_cfg
+  #host_key=false
+
+10.To create own inventory
+
+  vi /etc/ansible/walmart
+11.ansible -i "/etc/ansible/walmart' all -m ping
+
+12.To run shell module and commands
+      ansible all -m shell -a 'df-h'
+       ansible all -m shell -a uptime
+       ansible all -m shell -a 'cat /etc/*release'
+       ansible all -m shell -a 'df -h'
+
+13.Yum
+
+
+ansible all -m yum -a "name=vim
+ansible all -m yum -a "name=vim
+
+
+
+
+14.To execute all commands ,shell script should exists in server
+
+
+ansible ALL=(ALL) NOPASSWD:ALL
+
+15.How to install webserver
+
+
+
+
+
+
+
+
+
+
+
+
