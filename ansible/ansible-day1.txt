@@ -1,0 +1,144 @@
+ansible:
+
+ansible is an opensource by redhat
+opensource : no need to pay money
+
+every tool is de
+which is developed by python
+
+PIP : packagement tool to install python
+      which can be convered in dynamic inventory
+yum: in redhat
+apt:ubuntu
+
+configuration managemnet  tasks:
+
+1. installing a package
+2.stopping server
+3.creating users
+4.Copying the files
+
+1500:
+
+install new package in all servers
+
+tools:
+
+ansible -push
+chef -pull
+puppet -pull
+
+
+
+now a days everone is using python,this can be used for many languages like AI,data science
+
+
+advantages of ansible:
+ 1. simple
+ 2.Robust
+ 3.open source
+ 4.integrated
+ 5.agent less
+ 6.New release can only be updated on master not on targets
+ 8.Push based architecture
+ 9.It is secured becuase agentless and ssh and winrm -https protocol can be used for communication
+ 10.
+
+Architecutre:
+
+1. ansible server can be any public/private or hybrid cloud
+componentes:
+ 1. host inventory (single or group of servers it can be installed)
+ 2. playbooks
+2.Coremodules:once you install ansible software,some core modules are going to present or can be used
+3.Custom Modules: we can write own code,if code modules are not there.
+    and python must for custom modules,can be used for AWS lamda fn
+4.Plugins :
+
+  AWS plugin,ssh Plugin
+5.connection plugins
+
+
+Installation steps:
+
+1.Launch 3 instances in aws
+   1.ansible-server
+    2.target machines
+
+2.login to ansible -server
+   1.create user ansible  
+    - useradd ansible
+   2.set password for ansible 
+    - passwd ansible (ansible@123)
+   3.enable pssword authentication 
+    -vi /etc/ssh/sshd_config
+    - passwordauthentication yes
+   4.restart sshd service
+    - systemctl restart sshd
+   5.Enable sudo access in all machines too
+     - systemctl restart sshd
+
+   6.Repeat for remaining servers too
+   7.Install python3 version on ansible-server
+    sudo yum install python3 -y
+   8.python3 --version
+   9.update python alternatives
+     [root@ansible-server ~]# sudo alternatives --set python /usr/bin/python3
+    [root@ansible-server ~]# python --version
+   Python 3.6.8
+  10.sudo yum install -y ansible
+  11. to check  ansible version
+   ansible --version
+  12.To generate SSH keys
+    ssh doubletab
+    ssh-keygen
+   13.ssh-copy-id to copy files(which copy publickey from ansible server to host machines)
+
+     ssh-copy-id ansible@10.0.0.10
+     ssh-copy-id ansible@10.0.0.190
+   14.Now direct ssh communication can be established
+
+      [root@ansible-server ~]# ssh ansible@10.0.0.10
+Last failed login: Tue Nov  8 12:16:08 UTC 2022 from 10.0.0.12 on ssh:notty
+There were 3 failed login attempts since the last successful login.
+[ansible@target2 ~]$
+
+
+15. run ansible ping command
+
+ ansible all -m ping
+
+16.ansible doumentation
+
+
+
+3.ansible-server
+ 10.0.0.12
+
+target1 :10.0.0.10
+target2: 10.0.0.190
+
+To list all documents
+ansible-doc -l 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
